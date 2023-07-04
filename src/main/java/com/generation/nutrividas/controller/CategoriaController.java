@@ -30,7 +30,7 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-
+	
 	@GetMapping
 	public ResponseEntity<List<Categoria>> getAll() {
 		return ResponseEntity.ok(categoriaRepository.findAll());
@@ -43,7 +43,7 @@ public class CategoriaController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@GetMapping("/descrição/{descricao}")
+	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<Categoria>> getByDescricao(@PathVariable String descricao) {
 		return ResponseEntity.ok(categoriaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 

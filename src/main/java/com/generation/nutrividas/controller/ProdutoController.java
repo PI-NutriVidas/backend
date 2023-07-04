@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.nutrividas.model.Produto;
+import com.generation.nutrividas.repository.CategoriaRepository;
 import com.generation.nutrividas.repository.ProdutoRepository;
 
 import jakarta.validation.Valid;
@@ -20,6 +21,9 @@ public class ProdutoController {
 
 	@Autowired
 	public ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Produto>> getAll () {
@@ -39,16 +43,28 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> post (@Valid @RequestBody Produto produto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto){
+		if (categoriaRepository.existsById(produto.getCategoria().getId()))
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body(produtoRepository.save(produto));
+			
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe!", null);
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> put (@Valid @RequestBody Produto produto) {
-		return produtoRepository.findById(produto.getId())
-				.map(resp -> ResponseEntity.status(HttpStatus.CREATED)
-						.body(produtoRepository.save(produto)))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto){
+		if (produtoRepository.existsById(produto.getId())){
+			
+			if (categoriaRepository.existsById(produto.getCategoria().getId()))
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(produtoRepository.save(produto));
+			
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe!", null);
+			
+		}			
+			
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
