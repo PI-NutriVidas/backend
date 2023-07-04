@@ -30,7 +30,7 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-
+	
 	@GetMapping
 	public ResponseEntity<List<Categoria>> getAll() {
 		return ResponseEntity.ok(categoriaRepository.findAll());
