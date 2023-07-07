@@ -43,7 +43,7 @@ public class UsuarioService {
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
 			
-			if(buscaUsuario.isPresent() && (buscaUsuario.get().getId() != usuario.getId())) 
+			if((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != usuario.getId())) 
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 			
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
@@ -61,6 +61,7 @@ public class UsuarioService {
 		Authentication authentication = authenticationManager.authenticate(credenciais);
 		
 		if(authentication.isAuthenticated()) {
+			
 			Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 			
 			if(usuario.isPresent()) {
@@ -78,6 +79,7 @@ public class UsuarioService {
 	}
 	
 	private String criptografarSenha (String senha) {
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.encode(senha);
 	}

@@ -1,4 +1,5 @@
 package com.generation.nutrividas.security;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.generation.nutrividas.model.Usuario;
 
-public class UserDetailsImpl implements UserDetails   { 
+public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
@@ -19,7 +20,8 @@ public class UserDetailsImpl implements UserDetails   {
 		this.password = user.getSenha();
 	}
 
-	public UserDetailsImpl() {	}
+	public UserDetailsImpl() {
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,5 +59,5 @@ public class UserDetailsImpl implements UserDetails   {
 	@Override
 	public boolean isEnabled() {
 		return true;
-}
+	}
 }

@@ -103,6 +103,13 @@ public class Produto {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 }
