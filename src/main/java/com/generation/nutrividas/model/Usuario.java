@@ -22,7 +22,7 @@ public class Usuario {
 	
 	@NotBlank(message = "O email do usuário é obrigatório!")
 	@Size(min = 15, max = 100)
-	private String usuarioEmail;
+	private String usuario;
 	
 	@NotBlank(message = "A senha é obrigatório!")
 	@Size(min = 6, max = 50)
@@ -44,12 +44,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUsuarioEmail() {
-		return usuarioEmail;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarioEmail(String usuarioEmail) {
-		this.usuarioEmail = usuarioEmail;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getSenha() {
