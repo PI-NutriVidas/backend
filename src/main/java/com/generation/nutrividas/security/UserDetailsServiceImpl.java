@@ -14,22 +14,20 @@ import com.generation.nutrividas.model.Usuario;
 import com.generation.nutrividas.repository.UsuarioRepository;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService   {
-
+public class UserDetailsServiceImpl implements UserDetailsService {
+	
 	@Autowired
-    private UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        Optional<Usuario> usuario = usuarioRepository.findByUsuario(userName);
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario(userName);
 
-        if (usuario.isPresent())
-            return new UserDetailsImpl(usuario.get());
-        else
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-
-    }
-
-
+		if (usuario.isPresent())
+			return new UserDetailsImpl(usuario.get());
+		else
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+			
+	}
 }

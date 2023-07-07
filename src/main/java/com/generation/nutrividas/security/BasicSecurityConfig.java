@@ -16,40 +16,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @EnableWebSecurity
 public class BasicSecurityConfig {
 
-	@Autowired
-	private JwtAuthFilter authFilter;
-	
-	@Bean
-	UserDetailsService userDetailsService() {
-		return new UserDetailsServiceImpl();
-	}
-	
-	@Bean
-	 PasswordEncoder passwordEncoder() {
+    @Autowired
+    private JwtAuthFilter authFilter;
+
+    @Bean
+    UserDetailsService userDetailsService() {
+
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-	
-	@Bean
-	AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+
+    @Bean
+    AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
-	}
-	
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-	
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
                 .sessionManagement()
@@ -69,5 +69,7 @@ public class BasicSecurityConfig {
                 .httpBasic();
 
         return http.build();
-	}
+
+    }
+
 }
