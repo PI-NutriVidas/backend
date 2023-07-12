@@ -37,9 +37,16 @@ public class Produto {
 	@Size(min = 5, max = 100)
 	private String descricao;
 	
+	@Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caracteres!")
+	private String foto;
+	
 	@ManyToOne
-	@JsonIgnoreProperties("produto")
+	@JsonIgnoreProperties("produtos")
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produtos")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -88,6 +95,21 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
-	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }
